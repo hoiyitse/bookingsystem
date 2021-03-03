@@ -1,4 +1,3 @@
-
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css" />
@@ -7,989 +6,1209 @@
 </head>
 
 
-    <form  class="columns" id="app"  action="create" method="POST" >
-        <div class="column">
-            <div class="field">
-                <label class="label">Name</label>
-                <div class="control">
-                    <input class="input" type="text" v-model="name" required />
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">Teacher/Student in Charge</label>
-                <div class="control">
-                    <input class="input" type="text" v-model="incharge" required />
-                </div>
-            </div>
-
-            <div class="field">
-                <b-field label="Room to be reserved">
-                    <b-select name="room" placeholder="Select a room">
-                        <option v-for="equipment in equipments" :value="equipment.Room">
-                            {{ equipment.Room }}
-                        </option>
-                    </b-select>
-                </b-field>
-            </div>
-
-            <div class="field">
-                <label class="label">Purpose</label>
-                <div class="control">
-                    <textarea class="textarea" placeholder="Textarea" rows="5" name="detail" required></textarea>
-                </div>
+<div class="columns" id="app" action="create" method="POST">
+    <div class="column">
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                <input class="input" type="text" v-model="data.name" required />
             </div>
         </div>
-        <div class="column">
-            <div class="columns">
-                <div class="column">
-                    <label class="label">Number of students involved</label>
-                    <div class="control">
-                        <input class="input" type="number" name="participants" required />
-                    </div>
-                </div>
-                <div class="column">
-                    <label class="label">Interest Club or Class</label>
-                    <div class="control">
-                        <input class="input" type="text" name="associations" required />
-                    </div>
-                </div>
+        <div class="field">
+            <label class="label">Teacher/Student in Charge</label>
+            <div class="control">
+                <input class="input" type="text" v-model="data.incharge" required />
             </div>
-            <div class="columns">
-                <div class="column">
-                    <b-field label="Start Date">
-                        <b-datepicker name="startDate" v-model="selected" :locale="locale"
-                            placeholder="Click to select..." icon="calendar" trap-focus>
-                        </b-datepicker>
-                    </b-field>
-                </div>
-                <div class="column">
-                    <b-field label="End Date">
-                        <b-datepicker name="endDate" v-model="selected" :locale="locale"
-                            placeholder="Click to select..." icon="calendar" trap-focus>
-                        </b-datepicker>
-                    </b-field>
-                </div>
-            </div>
-            <div class="columns">
-                <div class="column">
-                    <b-field label="Start time">
-                        <b-timepicker rounded placeholder="Click to select..." icon="clock"
-                            :enable-seconds="enableSeconds" :hour-format="hourFormat" :locale="locale">
-                        </b-timepicker>
-                    </b-field>
-                </div>
-                <div class="column">
-                    <b-field label="End time">
-                        <b-timepicker rounded placeholder="Click to select..." icon="clock"
-                            :enable-seconds="enableSeconds" :hour-format="hourFormat" :locale="locale">
-                        </b-timepicker>
-                    </b-field>
-                </div>
-            </div>
+        </div>
 
-            <div class="block">
-                <b-radio v-model="radio" name="booking_type" native-value="oneTime">
-                    One time Event
-                </b-radio>
-                <b-radio v-model="radio" name="booking_type" native-value="recurrent">
-                    Recurrently
-                </b-radio>
-            </div>
-
-            <b-field>
-                <b-select placeholder="Recurrent Type" name="rtype" :disabled="!isRecurrent">
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
+        <div class="field">
+            <b-field label="Room to be reserved">
+                <b-select id="selectedRoom" v-model="data.selectRoom" placeholder="Select a room" @input="upDateRoom">
+                    <option v-for="equipment in equipments" :value="equipment.Room">
+                        {{ equipment.Room }}
+                    </option>
                 </b-select>
             </b-field>
+        </div>
 
-            <div class="columns">
-                <div class="column">
-                    <label class="label">Long Table</label>
-                    <div class="control">
-                        <input class="input" type="number" name="table" min="0" required />
-                    </div>
-                </div>
-                <div class="column">
-                    <label class="label">Chairs</label>
-                    <div class="control">
-                        <input class="input" type="number" name="chairs" min="0" required />
-                    </div>
-                </div>
+        <div class="field">
+            <label class="label">Purpose</label>
+            <div class="control">
+                <textarea class="textarea" placeholder="Textarea" rows="5" v-model="data.detail" required></textarea>
             </div>
-            <div class="columns">
-                <div class="column">
-                    <div class="control">
-                        <label class="label">Equipment</label>
-                        <label class="checkbox">
-                            <input type="checkbox" name="equipment" />
-                            Notebook Computer
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" name="equipment" />
-                            LCD Projector & Screen
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" name="equipment" />
-                            Internet Connection
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" name="equipment" />
-                            Visualizer
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" name="equipment" />
-                            Portable Amplifer
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" name="equipment" />
-                            VCD/DVD player
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" name="equipment" />
-                            CD player
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" name="equipment" />
-                            Rubbish bin
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">Special Arrangement Layout Plan</label>
+        </div>
+    </div>
+    <div class="column">
+        <div class="columns">
+            <div class="column">
+                <label class="label">Number of students involved</label>
                 <div class="control">
-                    <input class="input" type="file" name="arrangement" accept="image/x-png,image/gif,image/jpeg"
-                        required />
+                    <input class="input" type="number" min="0" v-model="data.participants" required>
                 </div>
             </div>
-            <div class="field">
+            <div class="column">
+                <label class="label">Interest Club or Class</label>
                 <div class="control">
-                    <button class="button is-link is-waring"  type="submit">
-                        Submit
-                    </button>
+                    <input class="input" type="text" v-model="data.associations" required>
                 </div>
             </div>
         </div>
-    </form>
+        <div class="columns">
+            <div class="column">
+                <b-field label="Start Date">
+                    <b-datepicker v-model="data.startDate" :locale="locale" placeholder="Click to select..."
+                        icon="calendar" trap-focus>
+                    </b-datepicker>
+                </b-field>
+            </div>
+            <div class="column">
+                <b-field label="End Date">
+                    <b-datepicker v-model="data.endDate" :locale="locale" placeholder="Click to select..."
+                        icon="calendar" trap-focus>
+                    </b-datepicker>
+                </b-field>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <b-field label="Start time">
+                    <b-timepicker rounded placeholder="Click to select..." icon="clock" v-model="data.startTime"
+                        :enable-seconds="enableSeconds" :hour-format="hourFormat" :locale="locale">
+                    </b-timepicker>
+                </b-field>
+            </div>
+            <div class="column">
+                <b-field label="End time">
+                    <b-timepicker rounded placeholder="Click to select..." icon="clock" v-model="data.endTime"
+                        :enable-seconds="enableSeconds" :hour-format="hourFormat" :locale="locale">
+                    </b-timepicker>
+                </b-field>
+            </div>
+        </div>
+
+        <div class="block">
+            <b-radio v-model="data.radio" name="booking_type" native-value="oneTime">
+                One time Event
+            </b-radio>
+            <b-radio v-model="data.radio" name="booking_type" native-value="recurrent">
+                Recurrently
+            </b-radio>
+        </div>
+
+        <b-field>
+            <b-select placeholder="Recurrent Type" v-model="data.rtype" :disabled="!isRecurrent">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </b-select>
+        </b-field>
+
+        <div class="columns">
+            <div class="column">
+                <label class="label">Long Table</label>
+                <div class="control">
+                    <input class="input" type="number" v-model="data.table"
+                        :disabled="selectedEquipmentList.longTable == false" min=0 required>
+                </div>
+            </div>
+            <div class="column">
+                <label class="label">Chairs</label>
+                <div class="control">
+                    <input class="input" type="number" v-model="data.chair" min=0
+                        :disabled="selectedEquipmentList.chair == false" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="block">
+            <b-checkbox v-model="data.equipGroup" native-value="visualizer"
+                :disabled="selectedEquipmentList.visualizer == false">
+                Visualizer
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="computer"
+                :disabled="selectedEquipmentList.computer== false">
+                computer
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="LCDProjectorScreen"
+                :disabled="selectedEquipmentList.LCDProjectorScreen== false">
+                LCD Projector Screen
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="cdProjector"
+                :disabled="selectedEquipmentList.cdProjector== false">
+                CD Projector
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="soundSystem"
+                :disabled="selectedEquipmentList.soundSystem== false">
+                Sound System
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="notebookComputer"
+                :disabled="selectedEquipmentList.notebookComputer == false">
+                Notebook Computer
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="wirelessMicrophone"
+                :disabled="selectedEquipmentList.wirelessMicrophone == false">
+                Wireless Microphone
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="photoTaking"
+                :disabled="selectedEquipmentList.photoTaking == false">
+                Photo Taking
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="pianoMic"
+                :disabled="selectedEquipmentList.pianoMic == false">
+                Piano Mic
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="podium"
+                :disabled="selectedEquipmentList.podium == false">
+                Podium
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="bell" :disabled="selectedEquipmentList.bell == false">
+                Bell
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="microphoneStand"
+                :disabled="selectedEquipmentList.microphoneStand== false">
+                Microphone Stand
+            </b-checkbox>
+            <b-checkbox v-model="data.equipGroup" native-value="cdPlayer"
+                :disabled="selectedEquipmentList.cdPlayer= false">
+                CD Player
+            </b-checkbox>
+        </div>
+
+        <b-field label="Special Arrangement Layout ">
+            <b-field class="file is-primary" :class="{'has-name': !!data.file}">
+                <b-upload v-model="data.file" class="file-label" rounded required>
+                    <span class="file-cta">
+                        <b-icon icon="upload"></b-icon>
+                        <span class="file-label">{{ data.file.name || "Click to upload"}}</span>
+                    </span>
+                </b-upload>
+            </b-field>
+        </b-field>
+        <div class="field">
+            <div class="control">
+                <button class="button is-link is-waring" @click="postToServer">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
 
 
-    <script src="https://unpkg.com/vue"></script>
-    <!-- Full bundle -->
-    <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<!-- Full bundle -->
+<script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
 
-    <!-- Individual components -->
-    <script src="https://unpkg.com/buefy/dist/components/table"></script>
-    <script src="https://unpkg.com/buefy/dist/components/input"></script>
+<!-- Individual components -->
+<script src="https://unpkg.com/buefy/dist/components/table"></script>
+<script src="https://unpkg.com/buefy/dist/components/input"></script>
 
-    <script>
-        new Vue({
-            el: "#app",
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            locale: "hk",
+            enableSeconds: false,
+            hourFormat: "24",
             data: {
+                name: '',
+                incharge: '',
+                associations: '',
+                startTime: undefined,
+                endTime: undefined,
 
-                enableSeconds: false,
-                hourFormat: "10:10:2012",
-                locale: "hk",
-                selected: false,
-                radio: "oneTime",
-                equipments: [
-                    {
-                        Room: "104",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "105",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "106",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "107",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "111",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "112",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "201",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "202",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "203",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "204",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "205",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "206",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "207",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "208",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "209",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "211",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "212",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "301",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "302",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "303",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "304",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "305",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "306",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        Room: "311",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "312",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "405",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "411",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "412",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "414",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "418",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "419",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "501",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "501A",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "504",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: true,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        phototaking: false,
-                        pianomic: false,
-                        podium: false,
-                        bell: false,
-                        microphonestand: false,
-                        cdplayer: false,
-                    },
-                    {
-                        room: "1/F Conference Room",
-                        visualizer: false,
-                        longTable: false,
-                        chair: false,
-                        computer: false,
-                        LCDProjectorScreen: false,
-                        soundSystem: false,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        Phototaking: false,
-                        pianoMic: false,
-                        podium: false,
-                        bell: false,
-                        microphoneStand: false,
-                        CDplayer: false,
-                    },
-                    {
-                        room: "6/F Conference Room",
-                        visualizer: "TRUE",
-                        longTable: "FALSE",
-                        chair: "FALSE",
-                        computer: "FALSE",
-                        LCDProjectorScreen: true,
-                        soundSystem: true,
-                        notebookComputer: true,
-                        wirelessMicrophone: false,
-                        photoTaking: false,
-                        pianoMic: false,
-                        podium: false,
-                        bell: false,
-                        microphoneStand: false,
-                        cdPlayer: false,
-                    },
-                    {
-                        room: "Multi-purpose Room",
-                        visualizer: false,
-                        longTable: true,
-                        chair: true,
-                        computer: false,
-                        LCDProjectorScreen: false,
-                        soundSystem: false,
-                        notebookComputer: true,
-                        wirelessMicrophone: true,
-                        photoTaking: true,
-                        pianoMic: false,
-                        podium: false,
-                        bell: false,
-                        microphoneStand: false,
-                        cdPlayer: false,
-                    },
-                    {
-                        room: "Covered Playground A (Entrance)",
-                        visualizer: false,
-                        longTable: true,
-                        chair: true,
-                        computer: false,
-                        LCDProjectorScreen: false,
-                        soundSystem: false,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        photoTaking: false,
-                        pianoMic: false,
-                        podium: false,
-                        bell: false,
-                        microphoneStand: false,
-                        cdPlayer: false,
-                    },
-                    {
-                        room: "Covered Playground B (w/mirrors)",
-                        visualizer: false,
-                        longTable: true,
-                        chair: true,
-                        computer: false,
-                        LCDProjectorScreen: false,
-                        soundSystem: true,
-                        notebookComputer: true,
-                        wirelessMicrophone: true,
-                        photoTaking: false,
-                        pianoMic: false,
-                        podium: false,
-                        bell: false,
-                        microphoneStand: false,
-                        cdPlayer: false,
-                    },
-                    {
-                        room: "Covered Playground C (New Annex)",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: false,
-                        LCDProjectorScreen: true,
-                        soundSystem: true,
-                        notebookComputer: true,
-                        wirelessMicrophone: true,
-                        photoTaking: true,
-                        pianoMic: false,
-                        podium: false,
-                        bell: false,
-                        microphoneStand: false,
-                        cdPlayer: false,
-                    },
-                    {
-                        room: "Hall",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: false,
-                        LCDProjectorScreen: false,
-                        soundSystem: false,
-                        notebookComputer: true,
-                        wirelessMicrophone: true,
-                        photoTaking: true,
-                        pianoMic: true,
-                        podium: true,
-                        bell: true,
-                        microphoneStand: true,
-                        cdPlayer: false,
-                    },
-                    {
-                        room: "Open Playground",
-                        visualizer: false,
-                        longTable: true,
-                        chair: true,
-                        computer: false,
-                        LCDProjectorScreen: false,
-                        soundSystem: false,
-                        notebookComputer: true,
-                        wirelessMicrophone: true,
-                        photoTaking: false,
-                        pianoMic: true,
-                        podium: false,
-                        bell: false,
-                        microphoneStand: false,
-                        cdPlayer: false,
-                    },
-                    {
-                        room: "Reading Corner",
-                        visualizer: true,
-                        longTable: true,
-                        chair: true,
-                        computer: false,
-                        LCDProjectorScreen: false,
-                        SoundSystem: false,
-                        notebookComputer: true,
-                        wirelessMicrophone: true,
-                        photoTaking: true,
-                        pianoMic: true,
-                        podium: false,
-                        bell: false,
-                        microphoneStand: true,
-                        cdPlayer: false,
-                    },
-                    {
-                        room: "Roof Playground (Annex R/F)",
-                        visualizer: false,
-                        longTable: true,
-                        chair: true,
-                        computer: false,
-                        LCDProjectorScreen: false,
-                        SoundSystem: false,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        photoTaking: false,
-                        pianoMic: false,
-                        podium: false,
-                        bell: false,
-                        microphoneStand: false,
-                        cdPlayer: false,
-                    },
-                    {
-                        room: "Student Activity Centre (Annex R/F)",
-                        visualizer: false,
-                        longTable: true,
-                        chair: true,
-                        computer: false,
-                        LCDProjectorScreen: false,
-                        SoundSystem: true,
-                        notebookComputer: false,
-                        wirelessMicrophone: false,
-                        photoTaking: false,
-                        pianoMic: false,
-                        podium: false,
-                        bell: false,
-                        microphoneStand: false,
-                        cdPlayer: false,
-                    },
-                ],
-
+                radio: 'oneTime',
+                startDate: new Date(),
+                endDate: new Date(),
+                file: {},
+                participants: 0,
+                detail: '',
+                rtype: '',
+                selectRoom: '',
+                table: 0,
+                chair: 0,
+                equipGroup: [],
             },
 
-
-            computed: {
-                isRecurrent() {
-                    return this.radio === "recurrent";
+            room104: [],
+            room105: [],
+            room106: [],
+            room107: [],
+            room111: [],
+            room112: [],
+            room201: [],
+            room202: [],
+            room203: [],
+            room204: [],
+            room205: [],
+            room206: [],
+            room207: [],
+            room208: [],
+            room209: [],
+            room211: [],
+            room212: [],
+            room301: [],
+            room302: [],
+            room303: [],
+            room304: [],
+            room305: [],
+            room306: [],
+            room311: [],
+            room312: [],
+            room405: [],
+            room411: [],
+            room412: [],
+            room414: [],
+            room418: [],
+            room419: [],
+            room501: [],
+            room501A: [],
+            room504: [],
+            selectedEquipmentList: [],
+            conferenceRoom1: [],
+            conferenceRoom6: [],
+            multiPurposeRoom: [],
+            coveredPlaygroundA: [],
+            coveredPlaygroundB: [],
+            coveredPlaygroundC: [],
+            hall: [],
+            openPlayground: [],
+            readingCorner: [],
+            roofPlayground: [],
+            studentActivityCentre: [],
+            equipments: [
+                {
+                    Room: "104",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
                 },
+                {
+                    Room: "105",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "106",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "107",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "111",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "112",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "201",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "202",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "203",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "204",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "205",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "206",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "207",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "208",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "209",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "211",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "212",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "301",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "302",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "303",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "304",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "305",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "306",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    Room: "311",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "312",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "405",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "411",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "412",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "414",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "418",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "419",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "501",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "501A",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "504",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: true,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    phototaking: false,
+                    pianomic: false,
+                    podium: false,
+                    bell: false,
+                    microphonestand: false,
+                    cdplayer: false,
+                },
+                {
+                    room: "1/F Conference Room",
+                    visualizer: false,
+                    longTable: false,
+                    chair: false,
+                    computer: false,
+                    LCDProjectorScreen: false,
+                    soundSystem: false,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    Phototaking: false,
+                    pianoMic: false,
+                    podium: false,
+                    bell: false,
+                    microphoneStand: false,
+                    CDplayer: false,
+                },
+                {
+                    room: "6/F Conference Room",
+                    visualizer: "TRUE",
+                    longTable: "FALSE",
+                    chair: "FALSE",
+                    computer: "FALSE",
+                    LCDProjectorScreen: true,
+                    soundSystem: true,
+                    notebookComputer: true,
+                    wirelessMicrophone: false,
+                    photoTaking: false,
+                    pianoMic: false,
+                    podium: false,
+                    bell: false,
+                    microphoneStand: false,
+                    cdPlayer: false,
+                },
+                {
+                    room: "Multi-purpose Room",
+                    visualizer: false,
+                    longTable: true,
+                    chair: true,
+                    computer: false,
+                    LCDProjectorScreen: false,
+                    soundSystem: false,
+                    notebookComputer: true,
+                    wirelessMicrophone: true,
+                    photoTaking: true,
+                    pianoMic: false,
+                    podium: false,
+                    bell: false,
+                    microphoneStand: false,
+                    cdPlayer: false,
+                },
+                {
+                    room: "Covered Playground A (Entrance)",
+                    visualizer: false,
+                    longTable: true,
+                    chair: true,
+                    computer: false,
+                    LCDProjectorScreen: false,
+                    soundSystem: false,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    photoTaking: false,
+                    pianoMic: false,
+                    podium: false,
+                    bell: false,
+                    microphoneStand: false,
+                    cdPlayer: false,
+                },
+                {
+                    room: "Covered Playground B (w/mirrors)",
+                    visualizer: false,
+                    longTable: true,
+                    chair: true,
+                    computer: false,
+                    LCDProjectorScreen: false,
+                    soundSystem: true,
+                    notebookComputer: true,
+                    wirelessMicrophone: true,
+                    photoTaking: false,
+                    pianoMic: false,
+                    podium: false,
+                    bell: false,
+                    microphoneStand: false,
+                    cdPlayer: false,
+                },
+                {
+                    room: "Covered Playground C (New Annex)",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: false,
+                    LCDProjectorScreen: true,
+                    soundSystem: true,
+                    notebookComputer: true,
+                    wirelessMicrophone: true,
+                    photoTaking: true,
+                    pianoMic: false,
+                    podium: false,
+                    bell: false,
+                    microphoneStand: false,
+                    cdPlayer: false,
+                },
+                {
+                    room: "Hall",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: false,
+                    LCDProjectorScreen: false,
+                    soundSystem: false,
+                    notebookComputer: true,
+                    wirelessMicrophone: true,
+                    photoTaking: true,
+                    pianoMic: true,
+                    podium: true,
+                    bell: true,
+                    microphoneStand: true,
+                    cdPlayer: false,
+                },
+                {
+                    room: "Open Playground",
+                    visualizer: false,
+                    longTable: true,
+                    chair: true,
+                    computer: false,
+                    LCDProjectorScreen: false,
+                    soundSystem: false,
+                    notebookComputer: true,
+                    wirelessMicrophone: true,
+                    photoTaking: false,
+                    pianoMic: true,
+                    podium: false,
+                    bell: false,
+                    microphoneStand: false,
+                    cdPlayer: false,
+                },
+                {
+                    room: "Reading Corner",
+                    visualizer: true,
+                    longTable: true,
+                    chair: true,
+                    computer: false,
+                    LCDProjectorScreen: false,
+                    SoundSystem: false,
+                    notebookComputer: true,
+                    wirelessMicrophone: true,
+                    photoTaking: true,
+                    pianoMic: true,
+                    podium: false,
+                    bell: false,
+                    microphoneStand: true,
+                    cdPlayer: false,
+                },
+                {
+                    room: "Roof Playground (Annex R/F)",
+                    visualizer: false,
+                    longTable: true,
+                    chair: true,
+                    computer: false,
+                    LCDProjectorScreen: false,
+                    SoundSystem: false,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    photoTaking: false,
+                    pianoMic: false,
+                    podium: false,
+                    bell: false,
+                    microphoneStand: false,
+                    cdPlayer: false,
+                },
+                {
+                    room: "Student Activity Centre (Annex R/F)",
+                    visualizer: false,
+                    longTable: true,
+                    chair: true,
+                    computer: false,
+                    LCDProjectorScreen: false,
+                    SoundSystem: true,
+                    notebookComputer: false,
+                    wirelessMicrophone: false,
+                    photoTaking: false,
+                    pianoMic: false,
+                    podium: false,
+                    bell: false,
+                    microphoneStand: false,
+                    cdPlayer: false,
+                },
+            ],
+
+        },
+
+        // mounted() {
+        //     this.room104 = this.equipments.filter(function (p) {
+        //         return p.room == "104";
+        //     });
+        //     this.room105 = this.equipments.filter(function (p) {
+        //         return p.room == "105";
+        //     });
+        //     this.room106 = this.equipments.filter(function (p) {
+        //         return p.room == "106";
+        //     });
+        //     this.room107 = this.equipments.filter(function (p) {
+        //         return p.room == "107";
+        //     });
+        //     this.room111 = this.equipments.filter(function (p) {
+        //         return p.room == "111";
+        //     });
+        //     this.room112 = this.equipments.filter(function (p) {
+        //         return p.room == "112";
+        //     });
+        //     this.room201 = this.equipments.filter(function (p) {
+        //         return p.room == "201";
+        //     });
+        //     this.room202 = this.equipments.filter(function (p) {
+        //         return p.room == "202";
+        //     });
+        //     this.room203 = this.equipments.filter(function (p) {
+        //         return p.room == "204";
+        //     });
+        //     this.room205 = this.equipments.filter(function (p) {
+        //         return p.room == "205";
+        //     });
+        //     this.room206 = this.equipments.filter(function (p) {
+        //         return p.room == "206";
+        //     });
+        //     this.room207 = this.equipments.filter(function (p) {
+        //         return p.room == "207";
+        //     });
+        //     this.room208 = this.equipments.filter(function (p) {
+        //         return p.room == "208";
+        //     });
+        //     this.room209 = this.equipments.filter(function (p) {
+        //         return p.room == "209";
+        //     });
+        //     this.room211 = this.equipments.filter(function (p) {
+        //         return p.room == "211";
+        //     });
+        //     this.room212 = this.equipments.filter(function (p) {
+        //         return p.room == "212";
+        //     });
+        //     this.room301 = this.equipments.filter(function (p) {
+        //         return p.room == "301";
+        //     });
+        //     this.room302 = this.equipments.filter(function (p) {
+        //         return p.room == "302";
+        //     });
+        //     this.room303 = this.equipments.filter(function (p) {
+        //         return p.room == "303";
+        //     });
+        //     this.room304 = this.equipments.filter(function (p) {
+        //         return p.room == "304";
+        //     });
+        //     this.room305 = this.equipments.filter(function (p) {
+        //         return p.room == "305";
+        //     });
+        //     this.room306 = this.equipments.filter(function (p) {
+        //         return p.room == "306";
+        //     });
+        //     this.room311 = this.equipments.filter(function (p) {
+        //         return p.room == "311";
+        //     });
+        //     this.room312 = this.equipments.filter(function (p) {
+        //         return p.room == "312";
+        //     });
+        //     this.room405 = this.equipments.filter(function (p) {
+        //         return p.room == "405";
+        //     });
+        //     this.room411 = this.equipments.filter(function (p) {
+        //         return p.room == "412";
+        //     });
+        //     this.room414 = this.equipments.filter(function (p) {
+        //         return p.room == "414";
+        //     });
+        //     this.room418 = this.equipments.filter(function (p) {
+        //         return p.room == "419";
+        //     });
+        //     this.room419 = this.equipments.filter(function (p) {
+        //         return p.room == "419";
+        //     });
+        //     this.room501 = this.equipments.filter(function (p) {
+        //         return p.room == "501";
+        //     });
+        //     this.room501A = this.equipments.filter(function (p) {
+        //         return p.room == "501A";
+        //     });
+        //     this.conferenceRoom1 = this.equipments.filter(function (p) {
+        //         return p.room == "1/F Conference Room";
+        //     });
+        //     this.conferenceRoom6 = this.equipments.filter(function (p) {
+        //         return p.room == "6/F Conference Room";
+        //     });
+        //     this.multiPurposeRoom = this.equipments.filter(function (p) {
+        //         return p.room == "Multi-purpose room";
+        //     });
+        //     this.coveredPlaygroundA = this.equipments.filter(function (p) {
+        //         return p.room == "Covered Playground A (Entrance)";
+        //     });
+        //     this.coveredPlaygroundB = this.equipments.filter(function (p) {
+        //         return p.room == "Covered Playground B (w/mirror)";
+        //     });
+        //     this.coveredPlaygroundC = this.equipments.filter(function (p) {
+        //         return p.room == "Covered Playground C (New Annex)";
+        //     });
+        //     this.hall = this.equipments.filter(function (p) {
+        //         return p.room == "Hall";
+        //     });
+        //     this.openPlayground = this.equipments.filter(function (p) {
+        //         return p.room == "Open Playground";
+        //     });
+        //     this.readingCorner = this.equipments.filter(function (p) {
+        //         return p.room == "Reading Corner";
+        //     });
+        //     this.roofPlayground = this.equipments.filter(function (p) {
+        //         return p.room == "Roof Playground (Annex R/F)";
+        //     });
+        //     this.studentActivityCentre = this.equipments.filter(function (p) {
+        //         return p.room == "Student Activity Centre (Annex R/F)";
+        //     });
+        // },
+
+        computed: {
+            isRecurrent() {
+                return this.data.radio === "recurrent";
             },
+        },
 
-            // methods: {
-            //     postToServer: async function () {
-            //         var response = await fetch("/booking/create", {
-            //             method: "POST",
-            //             headers: {
-            //                 "Content-Type": "application/json",
-            //             },
-            //             body: JSON.stringify(this.data),
-            //         });
+        methods: {
+            upDateRoom() {
 
-                    
-            //         if (response.ok) {
-            //             var equipment = await response.json();
-            //             alert(JSON.stringify(equipment) + ": ok!");
-            //         } else {
-            //             alert(response.statusText);
-            //         }
-            //     },
-            // },
-        });
-    </script>
+                var select_room = this.selectRoom
+
+                this.selectedEquipmentList = this.equipments.filter(function (room) {
+
+                    return room.room == select_room
+
+                })[0] || {};
+
+            },
+            postToServer: async function () {
+                var response = await fetch("/booking/create", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(this.data),
+                });
 
 
+                if (response.ok) {
+                    var data = await response.json();
+                    alert(JSON.stringify(data) + ": ok!");
+                } else {
+                    alert(response.statusText);
+                }
+            },
+        },
+    });
+</script>
