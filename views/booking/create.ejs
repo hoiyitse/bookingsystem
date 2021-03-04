@@ -215,7 +215,6 @@
                 associations: '',
                 startTime: undefined,
                 endTime: undefined,
-
                 radio: 'oneTime',
                 startDate: new Date(),
                 endDate: new Date(),
@@ -228,7 +227,6 @@
                 chair: 0,
                 equipGroup: [],
             },
-
             room104: [],
             room105: [],
             room106: [],
@@ -685,7 +683,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "312",
+                    Room: "312",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -702,7 +700,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "405",
+                    Room: "405",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -719,7 +717,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "411",
+                    Room: "411",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -736,7 +734,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "412",
+                    Room: "412",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -753,7 +751,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "414",
+                    Room: "414",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -770,7 +768,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "418",
+                    Room: "418",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -787,7 +785,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "419",
+                    Room: "419",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -804,7 +802,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "501",
+                    Room: "501",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -821,7 +819,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "501A",
+                    Room: "501A",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -838,7 +836,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "504",
+                    Room: "504",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -855,7 +853,7 @@
                     cdplayer: false,
                 },
                 {
-                    room: "1/F Conference Room",
+                    Room: "1/F Conference Room",
                     visualizer: false,
                     longTable: false,
                     chair: false,
@@ -872,7 +870,7 @@
                     CDplayer: false,
                 },
                 {
-                    room: "6/F Conference Room",
+                    Room: "6/F Conference Room",
                     visualizer: "TRUE",
                     longTable: "FALSE",
                     chair: "FALSE",
@@ -889,7 +887,7 @@
                     cdPlayer: false,
                 },
                 {
-                    room: "Multi-purpose Room",
+                    Room: "Multi-purpose Room",
                     visualizer: false,
                     longTable: true,
                     chair: true,
@@ -906,7 +904,7 @@
                     cdPlayer: false,
                 },
                 {
-                    room: "Covered Playground A (Entrance)",
+                    Room: "Covered Playground A (Entrance)",
                     visualizer: false,
                     longTable: true,
                     chair: true,
@@ -923,7 +921,7 @@
                     cdPlayer: false,
                 },
                 {
-                    room: "Covered Playground B (w/mirrors)",
+                    Room: "Covered Playground B (w/mirrors)",
                     visualizer: false,
                     longTable: true,
                     chair: true,
@@ -940,7 +938,7 @@
                     cdPlayer: false,
                 },
                 {
-                    room: "Covered Playground C (New Annex)",
+                    Room: "Covered Playground C (New Annex)",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -957,7 +955,7 @@
                     cdPlayer: false,
                 },
                 {
-                    room: "Hall",
+                    Room: "Hall",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -974,7 +972,7 @@
                     cdPlayer: false,
                 },
                 {
-                    room: "Open Playground",
+                    Room: "Open Playground",
                     visualizer: false,
                     longTable: true,
                     chair: true,
@@ -991,7 +989,7 @@
                     cdPlayer: false,
                 },
                 {
-                    room: "Reading Corner",
+                    Room: "Reading Corner",
                     visualizer: true,
                     longTable: true,
                     chair: true,
@@ -1008,7 +1006,7 @@
                     cdPlayer: false,
                 },
                 {
-                    room: "Roof Playground (Annex R/F)",
+                    Room: "Roof Playground (Annex R/F)",
                     visualizer: false,
                     longTable: true,
                     chair: true,
@@ -1025,7 +1023,7 @@
                     cdPlayer: false,
                 },
                 {
-                    room: "Student Activity Centre (Annex R/F)",
+                    Room: "Student Activity Centre (Annex R/F)",
                     visualizer: false,
                     longTable: true,
                     chair: true,
@@ -1042,155 +1040,19 @@
                     cdPlayer: false,
                 },
             ],
-
         },
-
-        // mounted() {
-        //     this.room104 = this.equipments.filter(function (p) {
-        //         return p.room == "104";
-        //     });
-        //     this.room105 = this.equipments.filter(function (p) {
-        //         return p.room == "105";
-        //     });
-        //     this.room106 = this.equipments.filter(function (p) {
-        //         return p.room == "106";
-        //     });
-        //     this.room107 = this.equipments.filter(function (p) {
-        //         return p.room == "107";
-        //     });
-        //     this.room111 = this.equipments.filter(function (p) {
-        //         return p.room == "111";
-        //     });
-        //     this.room112 = this.equipments.filter(function (p) {
-        //         return p.room == "112";
-        //     });
-        //     this.room201 = this.equipments.filter(function (p) {
-        //         return p.room == "201";
-        //     });
-        //     this.room202 = this.equipments.filter(function (p) {
-        //         return p.room == "202";
-        //     });
-        //     this.room203 = this.equipments.filter(function (p) {
-        //         return p.room == "204";
-        //     });
-        //     this.room205 = this.equipments.filter(function (p) {
-        //         return p.room == "205";
-        //     });
-        //     this.room206 = this.equipments.filter(function (p) {
-        //         return p.room == "206";
-        //     });
-        //     this.room207 = this.equipments.filter(function (p) {
-        //         return p.room == "207";
-        //     });
-        //     this.room208 = this.equipments.filter(function (p) {
-        //         return p.room == "208";
-        //     });
-        //     this.room209 = this.equipments.filter(function (p) {
-        //         return p.room == "209";
-        //     });
-        //     this.room211 = this.equipments.filter(function (p) {
-        //         return p.room == "211";
-        //     });
-        //     this.room212 = this.equipments.filter(function (p) {
-        //         return p.room == "212";
-        //     });
-        //     this.room301 = this.equipments.filter(function (p) {
-        //         return p.room == "301";
-        //     });
-        //     this.room302 = this.equipments.filter(function (p) {
-        //         return p.room == "302";
-        //     });
-        //     this.room303 = this.equipments.filter(function (p) {
-        //         return p.room == "303";
-        //     });
-        //     this.room304 = this.equipments.filter(function (p) {
-        //         return p.room == "304";
-        //     });
-        //     this.room305 = this.equipments.filter(function (p) {
-        //         return p.room == "305";
-        //     });
-        //     this.room306 = this.equipments.filter(function (p) {
-        //         return p.room == "306";
-        //     });
-        //     this.room311 = this.equipments.filter(function (p) {
-        //         return p.room == "311";
-        //     });
-        //     this.room312 = this.equipments.filter(function (p) {
-        //         return p.room == "312";
-        //     });
-        //     this.room405 = this.equipments.filter(function (p) {
-        //         return p.room == "405";
-        //     });
-        //     this.room411 = this.equipments.filter(function (p) {
-        //         return p.room == "412";
-        //     });
-        //     this.room414 = this.equipments.filter(function (p) {
-        //         return p.room == "414";
-        //     });
-        //     this.room418 = this.equipments.filter(function (p) {
-        //         return p.room == "419";
-        //     });
-        //     this.room419 = this.equipments.filter(function (p) {
-        //         return p.room == "419";
-        //     });
-        //     this.room501 = this.equipments.filter(function (p) {
-        //         return p.room == "501";
-        //     });
-        //     this.room501A = this.equipments.filter(function (p) {
-        //         return p.room == "501A";
-        //     });
-        //     this.conferenceRoom1 = this.equipments.filter(function (p) {
-        //         return p.room == "1/F Conference Room";
-        //     });
-        //     this.conferenceRoom6 = this.equipments.filter(function (p) {
-        //         return p.room == "6/F Conference Room";
-        //     });
-        //     this.multiPurposeRoom = this.equipments.filter(function (p) {
-        //         return p.room == "Multi-purpose room";
-        //     });
-        //     this.coveredPlaygroundA = this.equipments.filter(function (p) {
-        //         return p.room == "Covered Playground A (Entrance)";
-        //     });
-        //     this.coveredPlaygroundB = this.equipments.filter(function (p) {
-        //         return p.room == "Covered Playground B (w/mirror)";
-        //     });
-        //     this.coveredPlaygroundC = this.equipments.filter(function (p) {
-        //         return p.room == "Covered Playground C (New Annex)";
-        //     });
-        //     this.hall = this.equipments.filter(function (p) {
-        //         return p.room == "Hall";
-        //     });
-        //     this.openPlayground = this.equipments.filter(function (p) {
-        //         return p.room == "Open Playground";
-        //     });
-        //     this.readingCorner = this.equipments.filter(function (p) {
-        //         return p.room == "Reading Corner";
-        //     });
-        //     this.roofPlayground = this.equipments.filter(function (p) {
-        //         return p.room == "Roof Playground (Annex R/F)";
-        //     });
-        //     this.studentActivityCentre = this.equipments.filter(function (p) {
-        //         return p.room == "Student Activity Centre (Annex R/F)";
-        //     });
-        // },
 
         computed: {
             isRecurrent() {
                 return this.data.radio === "recurrent";
             },
         },
-
         methods: {
             upDateRoom() {
-
                 var select_room = this.selectRoom
-
                 this.selectedEquipmentList = this.equipments.filter(function (room) {
-
                     return room.room == select_room
-
                 })[0] || {};
-
             },
             postToServer: async function () {
                 var response = await fetch("/booking/create", {
@@ -1200,8 +1062,6 @@
                     },
                     body: JSON.stringify(this.data),
                 });
-
-
                 if (response.ok) {
                     var data = await response.json();
                     alert(JSON.stringify(data) + ": ok!");

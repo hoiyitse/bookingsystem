@@ -23,6 +23,9 @@ module.exports.routes = {
  'GET /booking/create': 'BookingController.create',
  'POST /booking/create': 'BookingController.create',
 
+ 'POST /booking/avatar': 'BookingController.avatar',
+ 'GET /booking/avatar/:id': 'BookingController.avatar',
+
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
